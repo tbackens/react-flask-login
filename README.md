@@ -4,7 +4,15 @@ I've created this Project for learnig purposes.
 
 Users can signup and login to see a dashboard and profile page.
 React Router v6 and react-auth-kit were used to create protected routes.
-The flask backend handles data and JWT token.
+
+Technologies used:
+-  React.js
+-  React Router v6
+-  react-auth-kit
+-  Bootstrap
+
+-  Flask
+-  SQLAlchemy
 
 ## Screenshots
 
