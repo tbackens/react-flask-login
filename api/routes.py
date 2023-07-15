@@ -3,6 +3,7 @@ from flask import Flask,redirect,url_for,render_template,request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import JWTManager
+import json
 
 from flask_cors import CORS
 
@@ -27,9 +28,10 @@ def get_auth_token():
     password = request.json.get("password", None)
     if username != 'testuser' or password != 'testuser':
         return {'msg': 'Invalid email or password'}, 401
-
+    user = User.query.filter_by(username=username).first()
+    state = user.get_data()
     access_token = create_access_token(identity=username)
-    response = {'access_token':access_token}
+    response = {'access_token':access_token, 'state':state}
     return (response)
 
 
@@ -45,9 +47,12 @@ def home():
 def create_default_user():
     default_username = 'testuser'
     default_pw = 'testuser'
+    default_name  = 'Timo'
+    default_surname  = 'Backens'
+
     query = db.session.query(User).filter_by(username=default_username).first()
     if query is None:
-        default_user = User(username=default_username)
+        default_user = User(username=default_username, name=default_name, surname=default_surname)
         default_user.create_pw_hash(default_pw)
         db.session.add(default_user)
         db.session.commit()
