@@ -7,8 +7,8 @@ from flask_login import UserMixin
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True, nullable=False)
-    name = db.Column(db.String, unique=True, nullable=False)
-    surname = db.Column(db.String, unique=True, nullable=False)
+    name = db.Column(db.String, unique=False, nullable=False)
+    surname = db.Column(db.String, unique=False, nullable=False)
     password_hash = db.Column(db.String, nullable=False)
 
     def create_pw_hash(self, password):

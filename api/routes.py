@@ -26,13 +26,41 @@ from models import User
 def get_auth_token():
     username = request.json.get("username", None)
     password = request.json.get("password", None)
-    if username != 'testuser' or password != 'testuser':
-        return {'msg': 'Invalid email or password'}, 401
-    user = User.query.filter_by(username=username).first()
-    state = user.get_data()
-    access_token = create_access_token(identity=username)
-    response = {'access_token':access_token, 'state':state}
-    return (response)
+
+    auth_user = User.query.filter_by(username=username).first()
+    if auth_user != None:
+        if auth_user.check_pw_hash(password):
+            state = auth_user.get_data()
+            access_token = create_access_token(identity=username)
+            response = {'access_token':access_token, 'state':state}
+            return (response)
+        else:
+            return {'msg': 'oops, wrong password!'}, 401
+    else:
+        return {'msg': 'no user found'}, 401
+
+@app.route('/signup',methods=['POST'])
+def signup():
+    username = request.json.get("username", None)
+    name = request.json.get("name", None)
+    surname = request.json.get("surname", None)
+    password1 = request.json.get("password1", None)
+    password2 = request.json.get("password2", None)
+
+    new_user = User(
+        username=username,
+        name=name,
+        surname=surname,
+    )
+    new_user.create_pw_hash(password1)
+    print(new_user.get_data())
+    db.session.add(new_user)
+    db.session.commit()
+
+    return(new_user.get_data())
+
+    
+
 
 
 
@@ -47,8 +75,8 @@ def home():
 def create_default_user():
     default_username = 'testuser'
     default_pw = 'testuser'
-    default_name  = 'Timo'
-    default_surname  = 'Backens'
+    default_name  = 'test'
+    default_surname  = 'user'
 
     query = db.session.query(User).filter_by(username=default_username).first()
     if query is None:
