@@ -26,7 +26,7 @@ const Login = () => {
 
     const getToken = async () => {
         try {
-            const res = await fetch('http://127.0.0.1:5001/token', {
+            const res = await fetch('http://localhost:5001/token', {
                 method :'POST',
                 mode: 'cors',
                 headers: {
@@ -47,6 +47,7 @@ const Login = () => {
                         token: data.access_token,
                         tokenType: "Bearer",
                         expiresIn:2,
+                        authState:  data.state
                         
                     }
                 )) {

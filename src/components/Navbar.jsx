@@ -29,7 +29,7 @@ const Navbar = () => {
                         {isAuthenticated() ? <button className="nav-link btn" onClick={() =>signOut() }>Logout</button> : <Link className="nav-link" to='/login'>Login</Link> }
                     </li>
                     <li className="nav-item">
-                        {isAuthenticated() ? <Link className="nav-link" to='/'>Profil</Link> : <Link className="nav-link" to='/register'>Register</Link> }
+                        {isAuthenticated() ? <Link className="nav-link" to='/profile'>Profile</Link> : <Link className="nav-link" to='/register'>Register</Link> }
                     </li>
                 </ul>
             </div>

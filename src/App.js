@@ -9,6 +9,7 @@ import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import PrivateRoutes from './PrivateRoutes';
 import Layout from './components/Layout';
+import Profile from './components/Profile';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
               {/* protected routes */}
               <Route element={<PrivateRoutes/>}>
                 <Route path='/dashboard' element={<Dashboard/>}/>
+                <Route path='/profile' element={<Profile/>}/>
               </Route>
             </Route>
           </Routes>

@@ -13,7 +13,7 @@ const Register = () => {
                 <label htmlFor="password1" className="form-label">Password</label>
                 <input type="password" className="form-control" id="password1"/>
             </div>
-            <div class="mb-3">
+            <div className="mb-3">
                 <label htmlFor="password2" className="form-label">Repeat Password</label>
                 <input type="password" className="form-control" id="password2"/>
             </div>
